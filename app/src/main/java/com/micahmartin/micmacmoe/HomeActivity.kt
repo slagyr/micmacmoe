@@ -25,11 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.foundation.Canvas
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -42,7 +44,7 @@ import com.micahmartin.micmacmoe.ui.theme.MicMacMoeTheme
 import kotlin.math.cos
 import kotlin.math.sin
 
-enum class Difficulty {
+enum class PlayerSelection {
     Human, Easy, Medium, Unbeatable
 }
 
@@ -66,10 +68,10 @@ class HomeActivity : ComponentActivity() {
 
 @Composable
 fun HomeScreen(
-    onPlayClicked: (player1: Difficulty, player2: Difficulty) -> Unit
+    onPlayClicked: (player1: PlayerSelection, player2: PlayerSelection) -> Unit
 ) {
-    val selectedPlayer1 = remember { mutableStateOf(Difficulty.Human) }
-    val selectedPlayer2 = remember { mutableStateOf(Difficulty.Unbeatable) }
+    val selectedPlayer1 = remember { mutableStateOf(PlayerSelection.Human) }
+    val selectedPlayer2 = remember { mutableStateOf(PlayerSelection.Unbeatable) }
 
     Box(
         modifier = Modifier
@@ -89,41 +91,11 @@ fun HomeScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             TicTacToeText()
-
             Spacer(modifier = Modifier.height(24.dp))
-
-            Text(
-                text = "Player One:",
-                color = Color.White,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            PlayerSelector(
-                selectedDifficulty = selectedPlayer1.value,
-                onDifficultySelected = { selectedPlayer1.value = it }
-            )
-
+            SelectPlayerInput("One", selectedPlayer1) { selectedPlayer1.value = it }
             Spacer(modifier = Modifier.height(48.dp))
-
-            Text(
-                text = "Player Two:",
-                color = Color.White,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            PlayerSelector(
-                selectedDifficulty = selectedPlayer2.value,
-                onDifficultySelected = { selectedPlayer2.value = it }
-            )
-
+            SelectPlayerInput("Two", selectedPlayer2) { selectedPlayer2.value = it }
             Spacer(modifier = Modifier.height(88.dp))
-
             NeonButton(
                 text = "Play",
                 onClick = {
@@ -132,6 +104,28 @@ fun HomeScreen(
             )
         }
     }
+}
+
+@Composable
+private fun SelectPlayerInput(
+    playerName: String,
+    selectedPlayer1: MutableState<PlayerSelection>,
+    playerOneSelected: (PlayerSelection) -> Unit
+) {
+    Text(
+        text = "Player $playerName:",
+        color = Color.White,
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Bold
+    )
+
+    Spacer(modifier = Modifier.height(12.dp))
+
+    PlayerSelector(
+        playerName = playerName,
+        selectedDifficulty = selectedPlayer1.value,
+        onDifficultySelected = playerOneSelected
+    )
 }
 
 @Composable
@@ -185,15 +179,17 @@ private fun GlowBackground() {
 
 @Composable
 fun PlayerSelector(
-    selectedDifficulty: Difficulty,
-    onDifficultySelected: (Difficulty) -> Unit
+    playerName: String,
+    selectedDifficulty: PlayerSelection,
+    onDifficultySelected: (PlayerSelection) -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.padding(horizontal = 16.dp)
     ) {
-        Difficulty.entries.forEach { difficulty ->
+        PlayerSelection.entries.forEach { difficulty ->
             PillButton(
+                playerName = playerName,
                 text = difficulty.name,
                 isSelected = difficulty == selectedDifficulty,
                 onClick = { onDifficultySelected(difficulty) }
@@ -203,7 +199,7 @@ fun PlayerSelector(
 }
 
 @Composable
-fun PillButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
+fun PillButton(playerName: String, text: String, isSelected: Boolean, onClick: () -> Unit) {
     val backgroundColor = if (isSelected) {
         SolidColor(ElectricCyan)
     } else {
@@ -215,7 +211,6 @@ fun PillButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
     } else {
         SolidColor(ElectricCyan)
     }
-
     Box(
         modifier = Modifier
             .height(50.dp)
@@ -229,7 +224,8 @@ fun PillButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
                 shape = RoundedCornerShape(25.dp)
             )
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
+            .testTag("player_${playerName}_selector_${text}"),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -273,7 +269,6 @@ fun NeonButton(text: String, onClick: () -> Unit) {
     }
 }
 
-// Reusable glow modifier
 fun Modifier.glowEffect(color: Color, radius: Float = 20f): Modifier = this.then(
     Modifier.graphicsLayer {
         shadowElevation = radius.dp.toPx()
