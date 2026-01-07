@@ -41,4 +41,8 @@ open class Board {
     fun isDraw(): Boolean {
         return isFull() && !isWin(Mark.X) && !isWin(Mark.O)
     }
+
+    fun emptyCells(): List<Int> {
+        return cells.indices.filter { cells[it] == Mark.EMPTY }
+    }
 }

@@ -147,4 +147,15 @@ class BoardTest {
         board.mark(7, O)
         assertEquals(false, board.isDraw())
     }
+
+    @Test
+    fun emptyCells() {
+        assertEquals(listOf(0, 1, 2, 3, 4, 5, 6, 7, 8), board.emptyCells())
+
+        board.mark(0, X)
+        assertEquals(listOf(1, 2, 3, 4, 5, 6, 7, 8), board.emptyCells())
+
+        board.mark(8, O)
+        assertEquals(listOf(1, 2, 3, 4, 5, 6, 7), board.emptyCells())
+    }
 }
