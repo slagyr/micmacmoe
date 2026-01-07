@@ -157,4 +157,25 @@ class BoardTest {
         board.mark(8, O)
         assertEquals(listOf(1, 2, 3, 4, 5, 6, 7), board.emptyCells())
     }
+
+    @Test
+    fun stringify() {
+        assertEquals("  |   |  \n" +
+                    "--------- \n" +
+                    "  |   |  \n" +
+                    "--------- \n" +
+                    "  |   |  ", board.toString()
+        )
+        board.setup(
+            X, O, X,
+            X, E, O,
+            E, E, O
+        )
+        assertEquals("X | O | X\n" +
+                "--------- \n" +
+                "X |   | O\n" +
+                "--------- \n" +
+                "  |   | O", board.toString()
+        )
+    }
 }

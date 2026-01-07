@@ -59,4 +59,26 @@ open class Board {
         cells[7] = c7
         cells[8] = c8
     }
+
+    private fun cellString(cell: Int): String {
+        val mark = cells[cell]
+        return when (mark) {
+            Mark.E -> " "
+            Mark.X -> "X"
+            Mark.O -> "O"
+        }
+    }
+
+    override fun toString():String {
+        // X | O | X
+        // ---------
+        // O | X | O
+        // ---------
+        // X | O | O
+        return "${cellString(0)} | ${cellString(1)} | ${cellString(2)}\n" +
+                "--------- \n" +
+                "${cellString(3)} | ${cellString(4)} | ${cellString(5)}\n" +
+                "--------- \n" +
+                "${cellString(6)} | ${cellString(7)} | ${cellString(8)}"
+    }
 }
