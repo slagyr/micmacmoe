@@ -1,5 +1,6 @@
 package com.micahmartin.micmacmoe
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -49,20 +50,24 @@ enum class PlayerSelection {
 }
 
 class HomeActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MicMacMoeTheme(dynamicColor = false) {
-                HomeScreen(onPlayClicked = { player1, player2 ->
-                    android.widget.Toast.makeText(
-                        this@HomeActivity,
-                        "Starting game: Player1 = $player1, Player2 = $player2",
-                        android.widget.Toast.LENGTH_SHORT
-                    ).show()
-                })
+                HomeScreen(onPlayClicked = this@HomeActivity::playGame)
             }
         }
+        playGame(PlayerSelection.Human, PlayerSelection.Unbeatable)
+    }
+
+    private fun playGame(player1: PlayerSelection, player2: PlayerSelection) {
+        val intent = Intent(this, GameActivity::class.java).apply {
+            putExtra("player1", player1)
+            putExtra("player2", player2)
+        }
+        startActivity(intent)
     }
 }
 
