@@ -1,7 +1,9 @@
 package com.micahmartin.micmacmoe
 
+enum class Mark { E, X, O } // E for EMPTY
+
 open class Board {
-    val cells: Array<Mark> = Array(9) { Mark.EMPTY }
+    val cells: Array<Mark> = Array(9) { Mark.E }
 
     fun mark(cell: Int, mark: Mark) {
         require(cell in 0..8) { "Position must be between 0 and 8" }
@@ -35,7 +37,7 @@ open class Board {
 
 
     fun isFull(): Boolean {
-        return !cells.any({it == Mark.EMPTY})
+        return !cells.any({it == Mark.E})
     }
 
     fun isDraw(): Boolean {
@@ -43,6 +45,18 @@ open class Board {
     }
 
     fun emptyCells(): List<Int> {
-        return cells.indices.filter { cells[it] == Mark.EMPTY }
+        return cells.indices.filter { cells[it] == Mark.E }
+    }
+
+    fun setup(c0: Mark, c1: Mark, c2: Mark, c3: Mark, c4: Mark, c5: Mark, c6: Mark, c7: Mark, c8: Mark) {
+        cells[0] = c0
+        cells[1] = c1
+        cells[2] = c2
+        cells[3] = c3
+        cells[4] = c4
+        cells[5] = c5
+        cells[6] = c6
+        cells[7] = c7
+        cells[8] = c8
     }
 }

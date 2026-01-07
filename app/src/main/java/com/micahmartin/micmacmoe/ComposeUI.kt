@@ -35,7 +35,7 @@ class ComposeUI : UI {
         return when(mark) {
             Mark.X -> "X"
             Mark.O -> "O"
-            Mark.EMPTY -> ""
+            Mark.E -> ""
         }
     }
 }

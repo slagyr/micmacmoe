@@ -1,10 +1,9 @@
 package com.micahmartin.micmacmoe
 
-import com.micahmartin.micmacmoe.Mark.EMPTY
+import com.micahmartin.micmacmoe.Mark.E
 import com.micahmartin.micmacmoe.Mark.O
 import com.micahmartin.micmacmoe.Mark.X
 import org.junit.Assert.assertEquals
-import org.junit.Rule
 import org.junit.Test
 import org.junit.Before
 
@@ -18,15 +17,15 @@ class BoardTest {
 
     @Test
     fun empty() {
-        assertEquals(EMPTY, board.cell(0))
-        assertEquals(EMPTY, board.cell(1))
-        assertEquals(EMPTY, board.cell(2))
-        assertEquals(EMPTY, board.cell(3))
-        assertEquals(EMPTY, board.cell(4))
-        assertEquals(EMPTY, board.cell(5))
-        assertEquals(EMPTY, board.cell(6))
-        assertEquals(EMPTY, board.cell(7))
-        assertEquals(EMPTY, board.cell(8))
+        assertEquals(E, board.cell(0))
+        assertEquals(E, board.cell(1))
+        assertEquals(E, board.cell(2))
+        assertEquals(E, board.cell(3))
+        assertEquals(E, board.cell(4))
+        assertEquals(E, board.cell(5))
+        assertEquals(E, board.cell(6))
+        assertEquals(E, board.cell(7))
+        assertEquals(E, board.cell(8))
     }
 
     @Test
