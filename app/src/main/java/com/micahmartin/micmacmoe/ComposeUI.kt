@@ -20,7 +20,7 @@ class ComposeUI : UI {
         fun createGame(xSelection: PlayerSelection, oSelection: PlayerSelection) {
             val playerX = selectionToPlayer(xSelection, Mark.X)
             val playerO = selectionToPlayer(oSelection, Mark.O)
-            Context.game = Game(ComposeUI(), NullBoard, playerX, playerO)
+            Context.game = Game(ComposeUI(), Board(), playerX, playerO)
         }
     }
 

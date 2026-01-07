@@ -22,7 +22,7 @@ class GameActivityTest {
 
     @Before
     fun setUp() {
-        Context.game = Game(ui, NullBoard, NullPlayer(Mark.X), NullPlayer(Mark.O))
+        Context.game = Game(ui, Board(), NullPlayer(Mark.X), NullPlayer(Mark.O))
         composeTestRule.setContent {
             GameScreen(NullActivity())
         }

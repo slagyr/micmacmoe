@@ -6,4 +6,4 @@ open class Game(val ui: UI,
                 val playerO: Player) {
 }
 
-object NullGame : Game(NullUI, NullBoard, NullPlayer(Mark.X), NullPlayer(Mark.O))
+object NullGame : Game(NullUI, Board(), NullPlayer(Mark.X), NullPlayer(Mark.O))
