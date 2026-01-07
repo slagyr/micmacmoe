@@ -38,16 +38,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.micahmartin.micmacmoe.ComposeUI.PlayerSelection
+import com.micahmartin.micmacmoe.ComposeUI.Companion.createGame
 import com.micahmartin.micmacmoe.ui.theme.AccentPurple
 import com.micahmartin.micmacmoe.ui.theme.ElectricCyan
 import com.micahmartin.micmacmoe.ui.theme.HotMagenta
 import com.micahmartin.micmacmoe.ui.theme.MicMacMoeTheme
 import kotlin.math.cos
 import kotlin.math.sin
-
-enum class PlayerSelection {
-    Human, Easy, Medium, Unbeatable
-}
 
 class HomeActivity : ComponentActivity() {
 
@@ -59,13 +57,16 @@ class HomeActivity : ComponentActivity() {
                 HomeScreen(onPlayClicked = this@HomeActivity::playGame)
             }
         }
-        playGame(PlayerSelection.Human, PlayerSelection.Unbeatable)
+//        playGame(PlayerSelection.Human, PlayerSelection.Unbeatable)
     }
 
-    private fun playGame(player1: PlayerSelection, player2: PlayerSelection) {
+
+
+    private fun playGame(playerX: PlayerSelection, playerO: PlayerSelection) {
+        createGame(playerX, playerO)
         val intent = Intent(this, GameActivity::class.java).apply {
-            putExtra("player1", player1)
-            putExtra("player2", player2)
+            putExtra("player1", playerX)
+            putExtra("player2", playerO)
         }
         startActivity(intent)
     }

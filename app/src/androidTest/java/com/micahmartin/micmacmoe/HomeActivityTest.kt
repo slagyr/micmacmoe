@@ -44,4 +44,5 @@ class HomeActivityTest {
         assertEquals(PlayerSelection.Medium, selectedPlayerOne)
         assertEquals(PlayerSelection.Easy, selectedPlayerTwo)
     }
+
 }
