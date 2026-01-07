@@ -1,5 +1,7 @@
 package com.micahmartin.micmacmoe
 
+import kotlin.random.Random
+
 
 abstract class Player(val mark: Mark) {
     abstract fun subTitle(): String
@@ -113,7 +115,12 @@ class MediumPlayer(mark: Mark) : ComputerPlayer(mark) {
     }
 
     override fun makeMove(board: Board): Int {
-        TODO("Not yet implemented")
+        // 20% chance to make a random move
+        if (Random.nextDouble() < 0.2) {
+            return makeRandomMove(board)
+        } else {
+            return makeBestMove(board)
+        }
     }
 }
 
