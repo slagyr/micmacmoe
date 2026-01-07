@@ -39,6 +39,8 @@ class ComposeUITest {
     @Test
     fun gameCreation() {
         createGame(PlayerSelection.Human, PlayerSelection.Unbeatable)
+
+        assertEquals(ComposeUI::class, Context.game.ui.javaClass.kotlin)
         assertEquals(HumanPlayer::class, Context.game.playerX.javaClass.kotlin)
         assertEquals(UnbeatablePlayer::class, Context.game.playerO.javaClass.kotlin)
         assertEquals(Mark.X, Context.game.playerX.mark)

@@ -4,6 +4,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.micahmartin.micmacmoe.ComposeUI.PlayerSelection
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test

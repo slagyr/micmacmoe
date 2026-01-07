@@ -1,7 +1,8 @@
 package com.micahmartin.micmacmoe
 
+import androidx.compose.runtime.mutableStateListOf
 
-class ComposeUI {
+class ComposeUI : UI {
     enum class PlayerSelection {
         Human, Easy, Medium, Unbeatable
     }
@@ -19,7 +20,22 @@ class ComposeUI {
         fun createGame(xSelection: PlayerSelection, oSelection: PlayerSelection) {
             val playerX = selectionToPlayer(xSelection, Mark.X)
             val playerO = selectionToPlayer(oSelection, Mark.O)
-            Context.game = Game(NullBoard, playerX, playerO)
+            Context.game = Game(ComposeUI(), NullBoard, playerX, playerO)
+        }
+    }
+
+    val boardState = mutableStateListOf("", "", "", "", "", "", "", "", "")
+    override fun update(game: Game) {
+        for (i in 0..8) {
+            boardState[i] = markToString(game.board.cell(i))
+        }
+    }
+
+    fun markToString(mark: Mark):String {
+        return when(mark) {
+            Mark.X -> "X"
+            Mark.O -> "O"
+            Mark.EMPTY -> ""
         }
     }
 }

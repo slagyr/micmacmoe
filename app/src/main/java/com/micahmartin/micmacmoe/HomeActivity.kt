@@ -60,14 +60,9 @@ class HomeActivity : ComponentActivity() {
 //        playGame(PlayerSelection.Human, PlayerSelection.Unbeatable)
     }
 
-
-
     private fun playGame(playerX: PlayerSelection, playerO: PlayerSelection) {
         createGame(playerX, playerO)
-        val intent = Intent(this, GameActivity::class.java).apply {
-            putExtra("player1", playerX)
-            putExtra("player2", playerO)
-        }
+        val intent = Intent(this, GameActivity::class.java)
         startActivity(intent)
     }
 }
