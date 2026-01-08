@@ -1,6 +1,14 @@
 # Mic Mac Moe
 An Android App to play Tic Tac Toe
 
+<table>
+  <tr>
+    <td><img src="https://github.com/slagyr/micmacmoe/blob/master/assets/home.png?raw=true" alt="Home Screen" width="300"/></td>
+    <td><img src="https://github.com/slagyr/micmacmoe/blob/master/assets/game.png?raw=true" alt="Game Screen" width="300"/></td>
+    <td><img src="https://github.com/slagyr/micmacmoe/blob/master/assets/tui.png?raw=true" alt="Text UI" width="300"/></td>
+  </tr>
+</table>
+
 ## Highlights
  * Build using Kotlin and Jetpack Compose
  * Comprehensive Unit Tests (TDD baby!)
