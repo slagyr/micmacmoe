@@ -27,7 +27,6 @@ open class Game(
 
     fun playMove() {
         val move = currentPlayer.makeMove(board)
-        println("move = ${move}")
         playMove(move)
     }
 
