@@ -14,15 +14,15 @@ class HomeActivityTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
-    var selectedPlayerOne: PlayerSelection? = null
-    var selectedPlayerTwo: PlayerSelection? = null
+    var selectedPlayerX: PlayerSelection? = null
+    var selectedPlayerO: PlayerSelection? = null
 
     @Before
     fun setUp() {
         composeTestRule.setContent {
             HomeScreen(onPlayClicked = { player1, player2 ->
-                selectedPlayerOne = player1
-                selectedPlayerTwo = player2
+                selectedPlayerX = player1
+                selectedPlayerO = player2
             })
         }
     }
@@ -31,19 +31,19 @@ class HomeActivityTest {
     fun testDefaultPlayerSelections() {
         composeTestRule.onNodeWithText("Play").performClick()
 
-        assertEquals(PlayerSelection.Human, selectedPlayerOne)
-        assertEquals(PlayerSelection.Unbeatable, selectedPlayerTwo)
+        assertEquals(PlayerSelection.Human, selectedPlayerX)
+        assertEquals(PlayerSelection.Unbeatable, selectedPlayerO)
     }
 
     @Test
     fun testAlternatePlayerSelections() {
-        composeTestRule.onNodeWithTag("player_One_selector_Medium").performClick()
-        composeTestRule.onNodeWithTag("player_Two_selector_Easy").performClick()
+        composeTestRule.onNodeWithTag("player_X_selector_Medium").performClick()
+        composeTestRule.onNodeWithTag("player_O_selector_Easy").performClick()
 
         composeTestRule.onNodeWithText("Play").performClick()
 
-        assertEquals(PlayerSelection.Medium, selectedPlayerOne)
-        assertEquals(PlayerSelection.Easy, selectedPlayerTwo)
+        assertEquals(PlayerSelection.Medium, selectedPlayerX)
+        assertEquals(PlayerSelection.Easy, selectedPlayerO)
     }
 
 }

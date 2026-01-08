@@ -12,15 +12,17 @@ An Android App to play Tic Tac Toe
 ## Highlights
  * Build using Kotlin and Jetpack Compose
  * Comprehensive Unit Tests (TDD baby!)
- * UI Unit Tests (androidTest?)
+ * UI Unit Tests (androidTest)
  * Human v Human or Human v Computer
  * Easy, Medium, and UNBEATABLE computer AIs.
  * Text UI playable from the terminal
+ * Applied Object Oriented Design Principles and Patterns
+ * Functional paradigm applied where reasonable
 
 ## Development
 ```sh
 # run all tests
-./gradlew test connectedAndroidTest 
+./gradlew test connectedAndroidTest --rerun-tasks
 
 # run console tic tac toe
 ./gradlew tui -q --console=plain

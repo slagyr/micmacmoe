@@ -69,3 +69,13 @@ tasks.register<Exec>("tui") {
     commandLine("java", "-cp", classpath, "com.micahmartin.micmacmoe.TextUI")
     standardInput = System.`in`
 }
+
+tasks.withType<Test> {
+    testLogging {
+        events("passed", "skipped", "failed")
+        showStandardStreams = false
+        showStackTraces = true
+        showExceptions = true
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
+}

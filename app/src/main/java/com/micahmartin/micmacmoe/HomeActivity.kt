@@ -41,6 +41,8 @@ import androidx.compose.ui.unit.sp
 import com.micahmartin.micmacmoe.ComposeUI.PlayerSelection
 import com.micahmartin.micmacmoe.ComposeUI.Companion.createGame
 import com.micahmartin.micmacmoe.ui.theme.AccentPurple
+import com.micahmartin.micmacmoe.ui.theme.DeepBlackPurple
+import com.micahmartin.micmacmoe.ui.theme.DeepPurple
 import com.micahmartin.micmacmoe.ui.theme.ElectricCyan
 import com.micahmartin.micmacmoe.ui.theme.HotMagenta
 import com.micahmartin.micmacmoe.ui.theme.MicMacMoeTheme
@@ -71,15 +73,15 @@ class HomeActivity : ComponentActivity() {
 fun HomeScreen(
     onPlayClicked: (player1: PlayerSelection, player2: PlayerSelection) -> Unit
 ) {
-    val selectedPlayer1 = remember { mutableStateOf(PlayerSelection.Human) }
-    val selectedPlayer2 = remember { mutableStateOf(PlayerSelection.Unbeatable) }
+    val selectedPlayerX = remember { mutableStateOf(PlayerSelection.Human) }
+    val selectedPlayerO = remember { mutableStateOf(PlayerSelection.Unbeatable) }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    colors = listOf(Color(0xFF0A0015), Color(0xFF1A0033))
+                    colors = listOf(DeepBlackPurple, DeepPurple)
                 )
             ),
         contentAlignment = Alignment.Center
@@ -93,14 +95,14 @@ fun HomeScreen(
         ) {
             TicTacToeText()
             Spacer(modifier = Modifier.height(24.dp))
-            SelectPlayerInput("One", selectedPlayer1) { selectedPlayer1.value = it }
+            SelectPlayerInput("X", selectedPlayerX) { selectedPlayerX.value = it }
             Spacer(modifier = Modifier.height(48.dp))
-            SelectPlayerInput("Two", selectedPlayer2) { selectedPlayer2.value = it }
+            SelectPlayerInput("O", selectedPlayerO) { selectedPlayerO.value = it }
             Spacer(modifier = Modifier.height(88.dp))
             NeonButton(
                 text = "Play",
                 onClick = {
-                    onPlayClicked(selectedPlayer1.value, selectedPlayer2.value)
+                    onPlayClicked(selectedPlayerX.value, selectedPlayerO.value)
                 }
             )
         }
