@@ -31,6 +31,10 @@ class ComposeUI : UI {
         }
     }
 
+    override fun getMove(game: Game): Int {
+        return -1 // Not used in Compose UI
+    }
+
     fun markToString(mark: Mark):String {
         return when(mark) {
             Mark.X -> "X"
