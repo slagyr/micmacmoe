@@ -87,4 +87,27 @@ class GameTest {
         assertEquals("Mock Player X WINS!", game.status())
         assertNotNull(ui.lastUpdate)
     }
+
+    @Test
+    fun cantMoveOnFinishedGames() {
+        board.setup(
+            X, O, E,
+            X, O, E,
+            E, O, E
+        )
+        game.playMove(6)
+        assertEquals(E, board.cell(6))
+    }
+
+    @Test
+    fun cantAutoMoveOnFinishedGames() {
+        playerX.moves.add(6)
+        board.setup(
+            X, O, E,
+            X, O, E,
+            E, O, E
+        )
+        game.playMove()
+        assertEquals(4, board.emptyCells().count())
+    }
 }

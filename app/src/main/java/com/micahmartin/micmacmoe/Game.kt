@@ -27,9 +27,16 @@ open class Game(
 
     fun playMove() {
         val move = currentPlayer.makeMove(board)
-        board.mark(move, currentPlayer.mark)
-        currentPlayer = if(currentPlayer == playerX) playerO else playerX
-        ui.update(this)
+        println("move = ${move}")
+        playMove(move)
+    }
+
+    fun playMove(move: Int) {
+        if(!isOver()) {
+            board.mark(move, currentPlayer.mark)
+            currentPlayer = if (currentPlayer == playerX) playerO else playerX
+            ui.update(this)
+        }
     }
 
     fun play() {

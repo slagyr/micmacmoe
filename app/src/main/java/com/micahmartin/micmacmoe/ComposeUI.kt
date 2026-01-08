@@ -1,6 +1,7 @@
 package com.micahmartin.micmacmoe
 
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 
 class ComposeUI : UI {
     enum class PlayerSelection {
@@ -25,10 +26,15 @@ class ComposeUI : UI {
     }
 
     val boardState = mutableStateListOf("", "", "", "", "", "", "", "", "")
+    val gameStatus = mutableStateOf("Loading")
+    var isGameOver = mutableStateOf(false)
+
     override fun update(game: Game) {
         for (i in 0..8) {
             boardState[i] = markToString(game.board.cell(i))
         }
+        gameStatus.value = game.status()
+        isGameOver.value = game.isOver()
     }
 
     override fun getMove(game: Game): Int {

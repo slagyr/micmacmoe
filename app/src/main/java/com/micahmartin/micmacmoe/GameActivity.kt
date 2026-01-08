@@ -21,8 +21,9 @@ import androidx.compose.ui.unit.sp
 import com.micahmartin.micmacmoe.ui.theme.ElectricCyan
 import com.micahmartin.micmacmoe.ui.theme.HotMagenta
 import com.micahmartin.micmacmoe.ui.theme.MicMacMoeTheme
-import com.micahmartin.micmacmoe.ComposeUI.PlayerSelection
 import com.micahmartin.micmacmoe.ui.theme.AccentPurple
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class GameActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,23 +37,43 @@ class GameActivity : ComponentActivity() {
     }
 }
 
+var moveDelay = 500L
+
 @Composable
 fun GameScreen(activity: ComponentActivity) {
 
     val composeUi: ComposeUI = Context.game.ui as ComposeUI
     val board = remember { composeUi.boardState }
-    var currentPlayer by remember { mutableStateOf("X") }
-    var gameStatus by remember { mutableStateOf("Player X's turn") }
-    var gameOver by remember { mutableStateOf(false) }
+    var gameStatus by remember { composeUi.gameStatus }
+    var isGameOver by remember { composeUi.isGameOver }
+    val coroutineScope = rememberCoroutineScope()
+
+    fun maybePlayNextMove() {
+        val game = Context.game
+        if (!game.isOver() && game.currentPlayer.isAutoMover()) {
+            game.playMove()
+            coroutineScope.launch {
+                delay(moveDelay)
+                maybePlayNextMove()
+            }
+        }
+    }
 
     fun makeMove(cell: Int) {
+        Context.game.playMove(cell)
+        maybePlayNextMove()
     }
 
     LaunchedEffect(Unit) {
-//        if (player1 != PlayerSelection.Human) {
-//            val aiMove = getAIMove(board, "X", player1)
-//            aiMove?.let { makeMove(it.first, it.second) }
-//        }
+        maybePlayNextMove()
+    }
+
+    fun playAgain() {
+        val oldGame = Context.game
+        val newGame = Game(oldGame.ui, Board(), oldGame.playerX, oldGame.playerO)
+        Context.game = newGame
+        oldGame.ui.update(newGame)
+        maybePlayNextMove()
     }
 
     Box(
@@ -80,8 +101,8 @@ fun GameScreen(activity: ComponentActivity) {
             )
             TicTacToeGrid(board) { cell -> makeMove(cell) }
             Spacer(modifier = Modifier.height(64.dp))
-            if (gameOver) {
-                NeonButton(text = "Play Again", onClick = { activity.finish() })
+            if (isGameOver) {
+                NeonButton(text = "Play Again", onClick = { playAgain() })
                 Spacer(modifier = Modifier.height(32.dp))
                 NeonButton(text = "Back", onClick = { activity.finish() })
             }
