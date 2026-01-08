@@ -37,7 +37,7 @@ class HumanPlayer(mark: Mark) : Player(mark) {
     }
 
     override fun makeMove(board: Board): Int {
-        TODO("Not yet implemented")
+        return Context.game.ui.getMove(Context.game)
     }
 }
 

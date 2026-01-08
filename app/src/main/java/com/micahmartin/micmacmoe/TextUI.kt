@@ -23,7 +23,7 @@ class TextUI : UI {
                 "--------- \n" +
                 "${cellString(board, 3)} | ${cellString(board, 4)} | ${cellString(board, 5)}\n" +
                 "--------- \n" +
-                "${cellString(board, 6)} | ${cellString(board, 7)} | ${cellString(board, 8)}"
+                "${cellString(board, 6)} | ${cellString(board, 7)} | ${cellString(board, 8)}\n"
     }
 
     override fun getMove(game: Game): Int {
@@ -35,12 +35,12 @@ class TextUI : UI {
             try {
                 val cell = line.toInt() - 1
                 if(game.board.cell(cell) != Mark.E) {
-                    println("\nMove taken")
+                    println("Move taken")
                 } else {
                     move = cell
                 }
             } catch (e: Exception) {
-                println("\nInvalid move")
+                println("Invalid move")
                 move = -1
             }
         }

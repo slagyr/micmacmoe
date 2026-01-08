@@ -59,3 +59,12 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
+
+tasks.register<Exec>("tui") {
+    dependsOn("compileDebugKotlin")
+    val classpath =
+        "${project.buildDir}/tmp/kotlin-classes/debug" + File.pathSeparator +
+                configurations["debugRuntimeClasspath"].asPath
+    commandLine("java", "-cp", classpath, "com.micahmartin.micmacmoe.TextUI")
+    standardInput = System.`in`
+}

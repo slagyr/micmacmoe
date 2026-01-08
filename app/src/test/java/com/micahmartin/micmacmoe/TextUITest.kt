@@ -56,7 +56,7 @@ class TextUITest {
                 "--------- \n" +
                 "4 | 5 | 6\n" +
                 "--------- \n" +
-                "7 | 8 | 9\n", output)
+                "7 | 8 | 9\n\n", output)
     }
 
     @Test
@@ -75,7 +75,7 @@ class TextUITest {
             val output = captureOutput {
                 assertEquals(0, ui.getMove(game))
             }
-            assertEquals("move? \nInvalid move\nmove? ", output)
+            assertEquals("move? Invalid move\nmove? ", output)
         }
     }
 
@@ -86,7 +86,7 @@ class TextUITest {
             val output = captureOutput {
                 assertEquals(8, ui.getMove(game))
             }
-            assertEquals("move? \nMove taken\nmove? ", output)
+            assertEquals("move? Move taken\nmove? ", output)
         }
     }
 
